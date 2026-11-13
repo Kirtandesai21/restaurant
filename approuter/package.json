@@ -1,0 +1,14 @@
+{
+  "name": "restaurant-approuter",
+  "version": "1.0.0",
+  "description": "SAP Approuter reverse proxy with XSUAA authentication",
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js"
+  },
+  "engines": {
+    "node": "^22.0.0"
+  },
+  "dependencies": {
+    "@sap/approuter": "^23.4.0"
+  }
+}

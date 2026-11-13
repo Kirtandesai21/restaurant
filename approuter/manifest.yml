@@ -1,0 +1,20 @@
+---
+applications:
+  - name: restaurant-app
+    path: .
+    memory: 128M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    services:
+      - restaurant-auth
+    env:
+      destinations: >
+        [
+          {
+            "name": "srv-api",
+            "url": "https://restaurant-srv.cfapps.us10-001.hana.ondemand.com",
+            "forwardAuthToken": true
+          }
+        ]
+

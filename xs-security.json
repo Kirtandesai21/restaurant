@@ -1,0 +1,58 @@
+{
+  "xsappname": "restaurant-062d3605trial-dev",
+  "tenant-mode": "dedicated",
+  "description": "Security configuration for Restaurant Application",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Restaurant Administrator with full access to menu, sales, and team"
+    },
+    {
+      "name": "$XSAPPNAME.Staff",
+      "description": "Restaurant Staff with table billing and order processing access"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Admin",
+      "description": "Administrator Role",
+      "scope-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "Staff",
+      "description": "Staff Member Role",
+      "scope-references": [
+        "$XSAPPNAME.Staff"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "Restaurant_Admin",
+      "description": "Restaurant Administrator Role Collection",
+      "role-template-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "Restaurant_Staff",
+      "description": "Restaurant Staff Member Role Collection",
+      "role-template-references": [
+        "$XSAPPNAME.Staff"
+      ]
+    }
+  ],
+  "oauth2-configuration": {
+    "credential-types": [
+      "binding-secret",
+      "x509"
+    ],
+    "redirect-uris": [
+      "https://*.cfapps.us10-001.hana.ondemand.com/**",
+      "https://*.hana.ondemand.com/**"
+    ]
+  }
+}

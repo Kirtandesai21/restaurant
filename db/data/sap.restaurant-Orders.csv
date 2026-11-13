@@ -1,0 +1,4 @@
+createdAt,createdBy,modifiedAt,modifiedBy,ID,customerName,totalPrice,status,paymentStatus,paymentMethod
+2026-11-04T06:49:25.267Z,anonymous,2026-11-04T06:49:25.267Z,anonymous,992511e9-0e19-45dd-b5e9-c2197f82e6af,kirtan desai,1560,Open,Paid,Card
+2026-11-04T06:49:51.855Z,anonymous,2026-11-04T06:49:51.855Z,anonymous,f79e8005-2045-4cbe-a072-9b3709622dde,Harmit desai,3340,Open,Paid,Cash
+2026-11-04T06:50:39.036Z,anonymous,2026-11-04T06:50:39.036Z,anonymous,13b4df5a-764b-42f4-bb28-205f10e53a97,Keyur desai,900,Open,Unpaid,Cash

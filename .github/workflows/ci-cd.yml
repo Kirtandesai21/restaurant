@@ -1,0 +1,76 @@
+name: SAP BTP CAP CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    name: Lint, Test & Build MTA
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Lint CDS Models
+        run: npx @sap/cds-dk lint
+
+      - name: Run Tests
+        run: npm test --if-present
+
+      - name: Install Cloud MTA Build Tool (MBT)
+        run: npm install -g mbt
+
+      - name: Build MTA Archive
+        run: mbt build -t ./mta_archives --mtar restaurant.mtar
+
+      - name: Upload MTAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mtar-package
+          path: mta_archives/restaurant.mtar
+          retention-days: 5
+
+  deploy-to-btp:
+    name: Deploy to SAP BTP Cloud Foundry
+    needs: build-and-test
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Download MTAR Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mtar-package
+          path: mta_archives
+
+      - name: Install Cloud Foundry CLI & MultiApps Plugin
+        run: |
+          wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+          echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+          sudo apt-get update -qq
+          sudo apt-get install -y cf8-cli
+          cf install-plugin multiapps -f
+
+      - name: Authenticate to Cloud Foundry
+        run: |
+          cf api ${{ secrets.CF_API_URL || 'https://api.cf.us10-001.hana.ondemand.com' }}
+          cf auth ${{ secrets.CF_USERNAME }} "${{ secrets.CF_PASSWORD }}"
+          cf target -o ${{ secrets.CF_ORG || '062d3605trial' }} -s ${{ secrets.CF_SPACE || 'dev' }}
+
+      - name: Deploy MTAR to Cloud Foundry
+        run: |
+          cf deploy mta_archives/restaurant.mtar -f

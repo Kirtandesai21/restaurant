@@ -1,0 +1,23 @@
+node_modules/
+target/
+_out/
+gen/
+.cds/
+
+.cdsrc-private.json
+default-*.json
+*.sqlite
+sqlite.db*
+*.db*
+
+# MTA
+mta_archives/
+*_mta_build_tmp
+*.mtar
+Makefile_*.mta
+
+# Other
+.DS_Store
+
+# @cap-js/cds-typer
+@cds-models
