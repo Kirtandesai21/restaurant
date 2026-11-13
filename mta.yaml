@@ -10,7 +10,7 @@ build-parameters:
       commands:
         - npm ci
         - npx cds build --production
-        - mkdir -p gen/srv/app/trattoria/webapp && cp app/trattoria/webapp/index.html gen/srv/app/trattoria/webapp/index.html && cp app/trattoria/webapp/index.html gen/srv/app/trattoria/index.html && mkdir -p gen/srv/app/webapp && cp app/trattoria/webapp/index.html gen/srv/app/webapp/index.html && cp app/trattoria/webapp/index.html gen/srv/app/index.html
+        - node copy-ui.js
 modules:
   - name: restaurant-srv
     type: nodejs
