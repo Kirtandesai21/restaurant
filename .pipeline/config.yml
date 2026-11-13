@@ -1,17 +1,18 @@
-# SAP Continuous Integration and Delivery configuration
-# Documentation: https://help.sap.com/docs/continuous-integration-and-delivery
-version: 1
-metadata:
-  name: "restaurant-cap-pipeline"
+### SAP Continuous Integration and Delivery - Cloud Foundry Environment Pipeline
+### Project "Piper" configuration schema
+general:
+  buildTool: "mta"
+
 stages:
   Build:
-    mtaBuildTool: "mbt"
+    npmExecuteLint: false
   Additional Unit Tests:
-    npmRun: "test"
+    npmExecuteScripts: false
+  Acceptance:
+    cloudFoundryDeploy: false
   Release:
-    cfTargets:
-      - org: "062d3605trial"
-        space: "dev"
-        apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
-        appName: "restaurant"
-        credentialsId: "cf-deployer-credential"
+    cloudFoundryDeploy: true
+    cfApiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
+    cfOrg: "062d3605trial"
+    cfSpace: "dev"
+    cfCredentialsId: "cf-deployer-credential"
