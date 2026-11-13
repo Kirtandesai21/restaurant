@@ -453,3 +453,59 @@ annotate RestaurantService.TotalSales with @(
         }
     ]
 );
+
+// ---------------------------------------------------------------------------
+// ActiveOrders CDS View Annotations
+// ---------------------------------------------------------------------------
+annotate RestaurantService.ActiveOrders with {
+    ID            @title: 'Order ID'       @Common.Label: 'Order ID';
+    customerName  @title: 'Customer Name'  @Common.Label: 'Customer';
+    totalPrice    @title: 'Total (₹)'      @Common.Label: 'Total (₹)' @Measures.ISOCurrency: 'INR';
+    status        @title: 'Status'         @Common.Label: 'Status';
+    paymentStatus @title: 'Payment'        @Common.Label: 'Payment';
+    paymentMethod @title: 'Payment Method' @Common.Label: 'Method';
+    createdAt     @title: 'Placed At'      @Common.Label: 'Placed At';
+};
+
+annotate RestaurantService.ActiveOrders with @(
+    UI.HeaderInfo: {
+        TypeName: 'Active Order',
+        TypeNamePlural: 'Active Orders (Live Queue)',
+        Title: { $Type: 'UI.DataField', Value: customerName },
+        Description: { $Type: 'UI.DataField', Value: status }
+    },
+    UI.SelectionFields: [ status, paymentStatus ],
+    UI.LineItem: [
+        { $Type: 'UI.DataField', Value: customerName, Label: 'Customer' },
+        { $Type: 'UI.DataField', Value: totalPrice, Label: 'Total (₹)' },
+        { $Type: 'UI.DataField', Value: status, Label: 'Order Status' },
+        { $Type: 'UI.DataField', Value: paymentStatus, Label: 'Payment Status' },
+        { $Type: 'UI.DataField', Value: paymentMethod, Label: 'Method' },
+        { $Type: 'UI.DataField', Value: createdAt, Label: 'Placed Time' }
+    ]
+);
+
+// ---------------------------------------------------------------------------
+// CategorySales CDS View Annotations
+// ---------------------------------------------------------------------------
+annotate RestaurantService.CategorySales with {
+    category          @title: 'Category'             @Common.Label: 'Dish Category';
+    totalOrdersCount  @title: 'Completed Orders'     @Common.Label: 'Orders Count';
+    totalDishesSold   @title: 'Dishes Sold'          @Common.Label: 'Quantity Sold';
+    totalRevenue      @title: 'Revenue (₹)'          @Common.Label: 'Category Revenue (₹)' @Measures.ISOCurrency: 'INR';
+};
+
+annotate RestaurantService.CategorySales with @(
+    UI.HeaderInfo: {
+        TypeName: 'Category Sales',
+        TypeNamePlural: 'Sales Analytics by Category',
+        Title: { $Type: 'UI.DataField', Value: category },
+        Description: { $Type: 'UI.DataField', Value: totalRevenue }
+    },
+    UI.LineItem: [
+        { $Type: 'UI.DataField', Value: category, Label: 'Dish Category' },
+        { $Type: 'UI.DataField', Value: totalOrdersCount, Label: 'Orders Count' },
+        { $Type: 'UI.DataField', Value: totalDishesSold, Label: 'Total Dishes Sold' },
+        { $Type: 'UI.DataField', Value: totalRevenue, Label: 'Total Revenue (₹)' }
+    ]
+);

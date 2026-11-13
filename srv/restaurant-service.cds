@@ -10,6 +10,7 @@ service RestaurantService {
     entity Menu as projection on my.MenuItems;
 
     @odata.draft.enabled
+    @cds.redirection.target
     @restrict: [
         { grant: '*', to: 'Admin' },
         { grant: ['READ', 'CREATE', 'UPDATE', 'pay'], to: 'Staff' }
@@ -87,6 +88,19 @@ service RestaurantService {
         totalOrdersCount  : Integer;
         unpaidRevenue     : Decimal(12, 2);
     }
+
+    @readonly
+    @cds.redirection.target: false
+    @restrict: [
+        { grant: 'READ', to: ['Admin', 'Staff'] }
+    ]
+    entity ActiveOrders as projection on my.ActiveOrders;
+
+    @readonly
+    @restrict: [
+        { grant: 'READ', to: 'Admin' }
+    ]
+    entity CategorySales as projection on my.CategorySales;
 
     @readonly
     entity OrderStatuses {

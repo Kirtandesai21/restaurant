@@ -139,7 +139,7 @@ cds.on('bootstrap', (app) => {
         </div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <a href="/odata/v4/restaurant/$fiori-preview/RestaurantService/Orders#preview-app" target="_blank" class="p-5 rounded-xl bg-slate-800/60 border border-slate-700/80 hover:border-teal-500/50 hover:bg-slate-800 transition group block">
+        <a href="/$fiori-preview/RestaurantService/Orders#preview-app" target="_blank" class="p-5 rounded-xl bg-slate-800/60 border border-slate-700/80 hover:border-teal-500/50 hover:bg-slate-800 transition group block">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-teal-500/10 text-teal-300 font-bold border border-teal-500/20">Draft Enabled</span>
             <span class="text-xs text-slate-400 group-hover:text-teal-400 font-mono transition">&nearr; Open Preview</span>
@@ -148,7 +148,7 @@ cds.on('bootstrap', (app) => {
           <p class="text-xs text-slate-400 mt-1">Full enterprise list report with status dropdown filters, Pay Bill action button, line item compositions, and criticality colors.</p>
         </a>
 
-        <a href="/odata/v4/restaurant/$fiori-preview/RestaurantService/Menu#preview-app" target="_blank" class="p-5 rounded-xl bg-slate-800/60 border border-slate-700/80 hover:border-teal-500/50 hover:bg-slate-800 transition group block">
+        <a href="/$fiori-preview/RestaurantService/Menu#preview-app" target="_blank" class="p-5 rounded-xl bg-slate-800/60 border border-slate-700/80 hover:border-teal-500/50 hover:bg-slate-800 transition group block">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-slate-700 text-slate-300 font-bold border border-slate-600">Full CRUD</span>
             <span class="text-xs text-slate-400 group-hover:text-teal-400 font-mono transition">&nearr; Open Preview</span>
@@ -157,7 +157,25 @@ cds.on('bootstrap', (app) => {
           <p class="text-xs text-slate-400 mt-1">Catalog list report with category filters, prices, and live available inventory stock.</p>
         </a>
 
-        <a href="/odata/v4/restaurant/$fiori-preview/RestaurantService/TotalSales#preview-app" target="_blank" class="p-5 rounded-xl bg-slate-800/60 border border-slate-700/80 hover:border-emerald-500/50 hover:bg-slate-800 transition group block">
+        <a href="/$fiori-preview/RestaurantService/ActiveOrders#preview-app" target="_blank" class="p-5 rounded-xl bg-slate-800/60 border border-slate-700/80 hover:border-sky-500/50 hover:bg-slate-800 transition group block">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 font-bold border border-sky-500/20">CDS View</span>
+            <span class="text-xs text-slate-400 group-hover:text-sky-400 font-mono transition">&nearr; Open Preview</span>
+          </div>
+          <h4 class="font-bold text-base text-white group-hover:text-sky-300 transition">Active Orders (Live Queue)</h4>
+          <p class="text-xs text-slate-400 mt-1">Kitchen & Cashier CDS View filtering only Open and Received customer orders computed on HANA.</p>
+        </a>
+
+        <a href="/$fiori-preview/RestaurantService/CategorySales#preview-app" target="_blank" class="p-5 rounded-xl bg-slate-800/60 border border-slate-700/80 hover:border-emerald-500/50 hover:bg-slate-800 transition group block">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 font-bold border border-emerald-500/20">CDS View Analytics</span>
+            <span class="text-xs text-slate-400 group-hover:text-emerald-400 font-mono transition">&nearr; Open Preview</span>
+          </div>
+          <h4 class="font-bold text-base text-white group-hover:text-emerald-300 transition">Sales by Category</h4>
+          <p class="text-xs text-slate-400 mt-1">Analytical CDS View aggregating total dishes sold, completed orders, and revenue generated per category.</p>
+        </a>
+
+        <a href="/$fiori-preview/RestaurantService/TotalSales#preview-app" target="_blank" class="p-5 rounded-xl bg-slate-800/60 border border-slate-700/80 hover:border-emerald-500/50 hover:bg-slate-800 transition group block">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 font-bold border border-emerald-500/20">Analytics</span>
             <span class="text-xs text-slate-400 group-hover:text-emerald-400 font-mono transition">&nearr; Open Preview</span>
@@ -237,6 +255,32 @@ cds.on('bootstrap', (app) => {
               <td class="py-3.5 px-4 text-slate-400 font-sans hidden md:table-cell">Day-wise aggregated sales, paid revenue & order counts</td>
               <td class="py-3.5 px-4 text-right">
                 <a href="/odata/v4/restaurant/TotalSales" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-bold underline">Open JSON</a>
+              </td>
+            </tr>
+
+            <!-- ActiveOrders (CDS View) -->
+            <tr class="hover:bg-slate-900/40 transition">
+              <td class="py-3.5 px-4 font-bold text-sky-400">ActiveOrders (CDS View)</td>
+              <td class="py-3.5 px-4 text-teal-400 truncate max-w-xs">
+                <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] mr-1.5 font-sans font-bold">GET</span>
+                /odata/v4/restaurant/ActiveOrders
+              </td>
+              <td class="py-3.5 px-4 text-slate-400 font-sans hidden md:table-cell">Live kitchen queue filtering only Open & Received orders</td>
+              <td class="py-3.5 px-4 text-right">
+                <a href="/odata/v4/restaurant/ActiveOrders" target="_blank" class="text-sky-400 hover:text-sky-300 font-bold underline">Open JSON</a>
+              </td>
+            </tr>
+
+            <!-- CategorySales (CDS View) -->
+            <tr class="hover:bg-slate-900/40 transition">
+              <td class="py-3.5 px-4 font-bold text-emerald-400">CategorySales (CDS View)</td>
+              <td class="py-3.5 px-4 text-teal-400 truncate max-w-xs">
+                <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] mr-1.5 font-sans font-bold">GET</span>
+                /odata/v4/restaurant/CategorySales
+              </td>
+              <td class="py-3.5 px-4 text-slate-400 font-sans hidden md:table-cell">HANA-aggregated sales revenue, quantities & orders by dish category</td>
+              <td class="py-3.5 px-4 text-right">
+                <a href="/odata/v4/restaurant/CategorySales" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-bold underline">Open JSON</a>
               </td>
             </tr>
 

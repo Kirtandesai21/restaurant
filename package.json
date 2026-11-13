@@ -5,6 +5,7 @@
   "dependencies": {
     "@cap-js/hana": "^3",
     "@sap/cds": "^10",
+    "@sap/cds-fiori": "^2",
     "@sap/xssec": "^4"
   },
   "devDependencies": {
@@ -24,7 +25,8 @@
       "index": true
     },
     "fiori": {
-      "bypass_draft": true
+      "bypass_draft": true,
+      "preview": true
     },
     "requires": {
       "db": {
@@ -35,7 +37,10 @@
       },
       "[production]": {
         "db": "hana",
-        "auth": "xsuaa"
+        "auth": "xsuaa",
+        "fiori": {
+          "preview": true
+        }
       }
     }
   }

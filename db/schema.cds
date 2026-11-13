@@ -51,3 +51,28 @@ entity Users : cuid, managed {
     name     : String(100);
     role     : String(20) default 'staff';
 }
+
+// ---------------------------------------------------------------------------
+// CDS Views (Computed on Database Level)
+// ---------------------------------------------------------------------------
+
+view ActiveOrders as select from Orders {
+    ID,
+    customerName,
+    totalPrice,
+    status,
+    paymentStatus,
+    paymentMethod,
+    createdAt
+} where status in ('Open', 'Received');
+
+view CategorySales as select from OrderItems as item
+    inner join MenuItems as dish on item.menuItem.ID = dish.ID
+    inner join Orders as ord on item.parent.ID = ord.ID
+{
+    key dish.category,
+    count(distinct ord.ID) as totalOrdersCount : Integer,
+    sum(item.quantity) as totalDishesSold : Integer,
+    sum(item.quantity * dish.price) as totalRevenue : Decimal(12, 2)
+} where ord.paymentStatus = 'Paid'
+group by dish.category;
